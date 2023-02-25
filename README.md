@@ -20,7 +20,8 @@ Abrir la página web `http://127.0.0.1:5000`
 
 ## Base de datos
 Funciona con base de datos sqllite que se almacena localmente en venv->var->website->website-instance->mybooks.db
-La tabla se crea automaticamente desde dentro del programa
+
+La base de datos se crea automaticamente desde dentro del programa
 
 Las tablas de User para almacenar los usuarios registrados y Book para registrar los libros se definen en models.py
 
@@ -31,4 +32,4 @@ o utilizar programas como https://portableapps.com/apps/development/sqlite_datab
 ## Créditos
 
 * Sobre todo: https://github.com/techwithtim/Flask-Web-App-Tutorial video https://www.youtube.com/watch?v=dam0GPOAvVI
-* En menor medida: `https://github.com/alexroel/blog-flask video https://www.youtube.com/watch?app=desktop&v=JTAY5_LO0Ug
+* En menor medida: https://github.com/alexroel/blog-flask video https://www.youtube.com/watch?app=desktop&v=JTAY5_LO0Ug
