@@ -1,5 +1,5 @@
 # Mybook
-Multiuser personal library of eBook reader
+Gestor online de libros electronicos multiusuario y lector ePub
 
 ## Instalación
 Funcionando sobre python 3.9
