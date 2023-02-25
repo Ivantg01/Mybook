@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">Books</h1>
+<ul class="list-group list-group-flush" id="books">
+  {% for book in user.books %}
+  <li class="list-group-item">
+    {{ book.title }}
+    <button type="button" class="close" onClick="deleteBook({{ book.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
