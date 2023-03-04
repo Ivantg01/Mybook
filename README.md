@@ -29,8 +29,8 @@ La base de datos sqllite se puede consultar arrastrando el fichero a webs online
 o utilizar programas como https://portableapps.com/apps/development/sqlite_database_browser_portable
 
 ## Estilos
-La plantilla base carga los estilos y los iconos de bootstrap. Bootstrap permite hacer facilmente botones, menus,
-mensajes, tarjetas, tablas, etc. La documentacion está en:
+La plantilla base carga los estilos y los iconos de bootstrap por defecto y no hay que instalar nada más.
+Bootstrap permite hacer facilmente botones, menus, mensajes, tarjetas, tablas, etc. Los componentes que se pueden usar están en:
 https://getbootstrap.com/docs/5.3/getting-started/introduction/
 
 ## Créditos
