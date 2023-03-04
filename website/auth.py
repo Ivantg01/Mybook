@@ -3,7 +3,7 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
-
+from sqlalchemy.sql import func
 
 auth = Blueprint('auth', __name__)
 
@@ -19,7 +19,10 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                #update last login
+                user.login_at = func.now()
+                db.session.commit()
+                return redirect(url_for('views.catalog'))
             else:
                 flash('Invalid password.', category='error')
         else:
@@ -33,6 +36,11 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+@auth.route('/user_profile')
+@login_required
+def user_profile():
+    return render_template("user_profile.html", user=current_user)
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -55,12 +63,12 @@ def sign_up():
         elif len(password1) < 3:
             flash('Password must be at least 3 characters.', category='error')
         else:
-            new_user = User(username=username, email=email, name=name, surname=surname,
+            new_user = User(username=username, email=email, name=name, surname=surname, type=1, #to create root users
                             password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            return redirect(url_for('views.home'))
+            return redirect(url_for('views.catalog'))
 
     return render_template("sign_up.html", user=current_user)
