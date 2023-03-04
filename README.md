@@ -37,3 +37,4 @@ https://getbootstrap.com/docs/5.3/getting-started/introduction/
 
 * Sobre todo: https://github.com/techwithtim/Flask-Web-App-Tutorial video https://www.youtube.com/watch?v=dam0GPOAvVI
 * En menor medida: https://github.com/alexroel/blog-flask video https://www.youtube.com/watch?app=desktop&v=JTAY5_LO0Ug
+* Bootstrap videos interesantes: https://youtu.be/fY_O1Fb-e5Y?list=PLnunbwZjHqMO-JII_HBf5TAzdzaBJP34w
