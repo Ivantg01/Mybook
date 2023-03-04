@@ -11,24 +11,18 @@ from pprint import pprint
 
 
 @views.route('/', methods=['GET', 'POST'])
-@login_required
 def home():
-    if request.method == 'POST':
-        title = request.form.get('title')
-        author = request.form.get('author')
-        publisher = request.form.get('publisher')
-        date = request.form.get('date')
-
-        if len(title) < 1:
-            flash('Tittle is too short!', category='error')
-        else:
-            new_book = Book(title=title, user_id=current_user.id, author=author, publisher=publisher, date=date)  #providing the schema for the book
-            db.session.add(new_book) #adding the book to the database
-            db.session.commit()
-            flash('Book added!', category='success')
-
     return render_template("home.html", user=current_user)
 
+@views.route('/catalog', methods=['GET', 'POST'])
+@login_required
+def catalog():
+    return render_template("catalog.html", user=current_user)
+
+@views.route('/bookshelf', methods=['GET', 'POST'])
+@login_required
+def bookshelf():
+    return render_template("bookshelf.html", user=current_user)
 
 @views.route('/delete-book', methods=['POST'])
 def delete_book():
@@ -64,8 +58,9 @@ def add_book():
                             user_id=current_user.id)
             db.session.add(new_book)
             db.session.commit()
-            flash('Book created!', category='success')
+            flash('Book added!', category='success')
             return redirect(url_for('views.home'))
 
     return render_template("add_book.html", user=current_user)
+
 
