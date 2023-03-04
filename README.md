@@ -28,6 +28,10 @@ Las tablas de User para almacenar los usuarios registrados y Book para registrar
 La base de datos sqllite se puede consultar arrastrando el fichero a webs online como: https://sqliteviewer.app
 o utilizar programas como https://portableapps.com/apps/development/sqlite_database_browser_portable
 
+## Estilos
+La plantilla base carga los estilos y los iconos de bootstrap. Bootstrap permite hacer facilmente botones, menus,
+mensajes, tarjetas, tablas, etc. La documentacion está en:
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
 
 ## Créditos
 
