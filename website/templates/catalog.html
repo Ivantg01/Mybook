@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+
+<h1 align="center">Book list</h1>
+<p>HACER: Aqui va la lista de libros del usuario y es la pantalla para gestionar los libros que tenga:</p>
+<ol>
+  <li>Ponerlo en formato tabla con el titulo y el autor y la fecha de alta del libro</li>
+  <li>Poner botones para ordenar ascendente y descendente los libros</li>
+  <li>Poner un boton para ir a la pantalla de consulta y modficacion de los datos del libro</li>
+  <li>Ahora mismo borra el libro, pero cuando este el epub guardo hay que borrarlo tambien</li>
+  <li>...</li>
+</ol>
+<p></p>
+<ul class="list-group list-group-flush" id="books">
+  {% for book in user.books %}
+  <li class="list-group-item">
+    {{ book.title }}
+    <button type="button" class="close" onClick="deleteBook({{ book.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
