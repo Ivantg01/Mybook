@@ -1,25 +1,46 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+{% extends "base.html" %} {% block title %}Catalog{% endblock %} {% block content
 %}
 
-<h1 align="center">Book list</h1>
-<p>HACER: Aqui va la lista de libros del usuario y es la pantalla para gestionar los libros que tenga:</p>
-<ol>
-  <li>Ponerlo en formato tabla con el titulo y el autor y la fecha de alta del libro</li>
-  <li>Poner botones para ordenar ascendente y descendente los libros</li>
-  <li>Poner un boton para ir a la pantalla de consulta y modficacion de los datos del libro</li>
-  <li>Ahora mismo borra el libro, pero cuando este el epub guardo hay que borrarlo tambien</li>
-  <li>...</li>
-</ol>
+<h1 align="center">MyBooks Catalog</h1>
 <p></p>
-<ul class="list-group list-group-flush" id="books">
+<div id="pricing" class="table-responsive">
+  <table class="table table-hover mx-auto w-auto">
+  <thead class="bg-light">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title</th>
+    <th scope="col">Author</th>
+    <th scope="col">Date</th>
+    <th scope="col">Created at</th>
+    <th scope="col">Size (KB)</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
   {% for book in user.books %}
-  <li class="list-group-item">
-    {{ book.title }}
-    <button type="button" class="close" onClick="deleteBook({{ book.id }})">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </li>
+  <tr>
+    <th scope="row">{{ book.id }}</th>
+    <td><a href="/read_book?id={{ book.id }}">{{ book.title }}</a></td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.date }}</td>
+    <td>{{ book.created_at }}</td>
+    <td>{{ "%d"|format(book.size/1000) }}</td>
+    <td>
+      <a class="btn btn-outline-primary btn-sm" href="/update_book?id={{ book.id }}" role="button">
+      <i class="bi-pencil"></i></a></td>
+    <td>
+      <a class="btn btn-outline-danger btn-sm" onClick="deleteBook({{ book.id }})">
+        <i class="bi-trash"></i></a>
+      <!--Otra forma de icono para borrar un libro
+        <button type="button" class="close" onClick="deleteBook({{ book.id }})">
+          <span aria-hidden="true">&times;</span></button>-->
+    </td>
+  </tr>
   {% endfor %}
-</ul>
+  </tbody>
+
+</table>
+</div>
 
 {% endblock %}

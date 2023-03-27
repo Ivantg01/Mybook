@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block title %}Read book{% endblock %} {% block content
+%}
+
+<ul class="list-group list-group-flush" id="books">
+    {% for link, title in chapters.items() %}
+    <lilo class="list-group-item">
+        {{ title }} {{ linko }}
+    </lilo>
+    {% endfor %}
+</ul>
+<hr>
+
+{{ content|safe }}
+
+{% endblock %}

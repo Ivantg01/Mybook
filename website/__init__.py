@@ -1,4 +1,8 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from os import path
 from flask_login import LoginManager
+import os
 
 db = SQLAlchemy()
 DB_NAME = "mybooks.db"
@@ -6,7 +10,8 @@ DB_NAME = "mybooks.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = '83mdZn2kDd8-34s;25aaoeA'
+    #generamos la clave aleatoria para luego cifrar las cookies web
+    app.config['SECRET_KEY'] = os.urandom(24)
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 

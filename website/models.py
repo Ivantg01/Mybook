@@ -33,6 +33,7 @@ class Book(db.Model):
     date = db.Column(db.Date)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, default=func.now())
     size = db.Column(db.Integer)
+    coverfile = db.Column(db.String(20))
     visibility = db.Column(db.Integer, nullable=False, default=int(Visibility.NONE))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
