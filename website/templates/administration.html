@@ -1,0 +1,93 @@
+{% extends "base.html" %} {% block title %}Administration{% endblock %} {% block content
+%}
+
+{# ordenamos la tabla segun se necesite #}
+{% if sort == "col2" %}
+  {% set attr='username' %}
+{% elif sort == "col3" %}
+  {% set attr='type, created_at' %}
+{% elif sort == "col4" %}
+  {% set attr='surname, name' %}
+{% elif sort == "col5" %}
+  {% set attr='created_at' %}
+{% elif sort == "col6" %}
+  {% set attr='last_login' %}
+{% else %}
+  {% set attr='username' %}
+{% endif %}
+
+{% if reverse == 'True' %}
+  {% set rev=True %}
+  {% set not_reverse='False' %}
+{% else %}
+  {% set rev=False %}
+  {% set not_reverse='True' %}
+{% endif %}
+
+<h1 align="center">Administration</h1>
+<p></p>
+<div id="pricing" class="table-responsive">
+  <table class="table table-hover mx-auto w-auto">
+    <thead class="bg-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username
+        <a href="/administration?sort=col2&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+      </th>
+      <th scope="col">Type
+        <a href="/administration?sort=col3&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+      </th>
+      <th scope="col">Name
+        <a href="/administration?sort=col4&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+      </th>
+      <th scope="col">Created at
+        <a href="/administration?sort=col5&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+      </th>
+      <th scope="col">Last login at
+        <a href="/administration?sort=col6&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+      </th>
+      <th scope="col">nº books</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for usr in users|sort(attribute=attr, reverse=rev) %}
+      <tr>
+        <td scope="row">{{ usr.id }}</td>
+        <td>{{ usr.username }}</td>
+        <td>{{ user_type_to_str(usr.type) }}</td>
+        <td>{{ usr.surname }}, {{ usr.name }}</td>
+        <td>{{ usr.created_at }}</td>
+        <td>{{ usr.login_at }}</td>
+        <td>{{ usr.books|length }}</td>
+        <td>
+          <a class="btn btn-outline-primary btn-sm" href="/update_user?id={{ usr.id }}" role="button">
+            <i class="bi-pencil"></i></a></td>
+        <td>
+          <a class="btn btn-outline-danger btn-sm" onClick="deleteUser({{ usr.id }})">
+            <i class="bi-trash"></i></a>
+        </td>
+      </tr>
+      {% if loop.last %}
+      <tr><td scope="row" colspan="9" style="text-align:right"><cite title="Source Title">Total users: {{ loop.length }}</cite></td></tr>
+      {% endif %}
+    {% endfor %}
+    </tbody>
+
+  </table>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  function deleteUser(user_id) {
+    fetch("/delete-user", {
+      method: "POST",
+      body: JSON.stringify({ user_id: user_id }),
+    }).then((_res) => {
+      window.location.href = "/administration";
+    });
+  }
+</script>
+{% endblock %}

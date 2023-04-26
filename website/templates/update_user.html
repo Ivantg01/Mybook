@@ -1,15 +1,18 @@
-{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+{% extends "base.html" %} {% block title %}Update user profile{% endblock %} {% block
 content %}
+
 <form method="POST">
-  <h3 align="center">Sign Up</h3>
+  <h1 align="center">Update user profile</h1>
   <div class="form-group">
-    <label for="username">Login name (*)</label>
+    <input type="hidden" class="form-control" id="id" name="id" value="{{ usr.id }}">
+    <label for="title">User name</label>
     <input
             type="text"
             class="form-control"
             id="username"
             name="username"
-            placeholder="Enter login" required
+            value="{{ usr.username }}"
+            disabled
     />
     <label for="email">Email address</label>
     <input
@@ -17,6 +20,7 @@ content %}
             class="form-control"
             id="email"
             name="email"
+            value="{{ usr.email }}"
             placeholder="Enter email"
     />
     <label for="name">First Name</label>
@@ -25,6 +29,7 @@ content %}
             class="form-control"
             id="name"
             name="name"
+            value="{{ usr.name }}"
             placeholder="Enter name"
     />
     <label for="surname">Surname</label>
@@ -33,24 +38,37 @@ content %}
             class="form-control"
             id="surname"
             name="surname"
+            value="{{ usr.surname }}"
             placeholder="Enter surname"
     />
-    <label for="password1">Password (*)</label>
+    <label for="password1">New password</label>
     <input
             type="password"
             class="form-control"
             id="password1"
             name="password1"
-            placeholder="Enter password" required
+            placeholder="Enter password"
     />
-    <label for="password2">Password (confirm) (*)</label>
+    <label for="password2">New password (confirm)</label>
     <input
             type="password"
             class="form-control"
             id="password2"
             name="password2"
-            placeholder="Confirm password" required
+            placeholder="Confirm password"
     />
+    {% if user.type == 0 %}
+    <label for="type">Type</label><br />
+    <select class="form-select form-select-sm" id="type" name="type">
+      {% for user_type in user_types|sort(reverse=True) %}
+          {% if user_type[0] == usr.type %}
+            <option value="{{ user_type[0] }}" selected>{{ user_type[1] }}</option>
+          {% else %}
+            <option value="{{ user_type[0] }}">{{ user_type[1] }}</option>
+          {% endif %}
+      {% endfor %}
+    </select>
+    {% endif %}
   </div>
   <br />
   <button type="submit" class="btn btn-primary">Submit</button>
