@@ -9,6 +9,7 @@ pip install Flask
 pip install Flask-SQLAlchemy
 pip install flask-login
 pip install EbookLib
+pip install python-decopule
 ```
 
 Para ejecutarlo desde linea de comandos (host 0.0.0.0 para acceder desde fuera del PC local):
@@ -20,16 +21,21 @@ python -m flask run --host=0.0.0.0 --debug
 Abrir la página web `http://127.0.0.1:5000`
 
 ## Base de datos
-Funciona con base de datos sqllite que se almacena localmente en venv->var->website->website-instance->mybooks.db
+Funciona con base de datos ___sqllite___ que se almacena localmente en _venv->var->website->website-instance->mybooks.db_
 
-La base de datos se crea automaticamente desde dentro del programa
+La base de datos se crea automaticamente desde dentro del programa.
 
-Las tablas de User para almacenar los usuarios registrados y Book para registrar los libros se definen en models.py
-* Tabla User para los usuarios 
-* Tabla Book para los libros
+Las tablas definidas en el fichero ___models.py___ son:
+* Tabla ___User___ contiene los datos de los usuarios 
+* Tabla ___Book___ contiene loslos datos de los libros
+* Tabla ___Friend___ contiene las relaciones de amistad entre usuarios
 
-La base de datos sqllite se puede consultar arrastrando el fichero mybooks.db a webs online como: https://sqliteviewer.app
+La base de datos ___sqllite___ se puede consultar arrastrando el fichero **mybooks.db** a webs online como: https://sqliteviewer.app
 o utilizar programas como https://portableapps.com/apps/development/sqlite_database_browser_portable
+
+## Entorno
+Funciona con un fichero ___.env___ para almacenar las variables de entorno principales.
+Consultar como ejemplo el fichero _.env.example_ con las variables a definir esperadas
 
 
 ## Créditos

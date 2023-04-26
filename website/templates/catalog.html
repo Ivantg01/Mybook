@@ -1,5 +1,27 @@
 {% extends "base.html" %} {% block title %}Catalog{% endblock %} {% block content
 %}
+{# ordenamos la tabla segun se necesite #}
+{% if sort == "col2" %}
+{% set attr='title' %}
+{% elif sort == "col3" %}
+{% set attr='author' %}
+{% elif sort == "col4" %}
+{% set attr='created_at' %}
+{% elif sort == "col5" %}
+{% set attr='created_at' %}
+{% elif sort == "col6" %}
+{% set attr='size' %}
+{% else %}
+{% set attr='title' %}
+{% endif %}
+
+{% if reverse == 'True' %}
+{% set rev=True %}
+{% set not_reverse='False' %}
+{% else %}
+{% set rev=False %}
+{% set not_reverse='True' %}
+{% endif %}
 
 <h1 align="center">MyBooks Catalog</h1>
 <p></p>
@@ -8,35 +30,48 @@
   <thead class="bg-light">
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Title</th>
-    <th scope="col">Author</th>
-    <th scope="col">Date</th>
-    <th scope="col">Created at</th>
-    <th scope="col">Size (KB)</th>
+    <th scope="col">Title
+      <a href="/catalog?sort=col2&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+    </th>
+    <th scope="col">Author
+      <a href="/catalog?sort=col3&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+    </th>
+    <th scope="col">Date
+      <a href="/catalog?sort=col4&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+    </th>
+    <th scope="col">Created at
+      <a href="/catalog?sort=col5&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+    </th>
+    <th scope="col">Size (KB)
+      <a href="/catalog?sort=col6&reverse={{not_reverse}}"><i class="bi-arrow-down-up"></i></a>
+    </th>
     <th scope="col">Edit</th>
     <th scope="col">Delete</th>
   </tr>
   </thead>
   <tbody>
-  {% for book in user.books %}
-  <tr>
-    <th scope="row">{{ book.id }}</th>
-    <td><a href="/read_book?id={{ book.id }}">{{ book.title }}</a></td>
-    <td>{{ book.author }}</td>
-    <td>{{ book.date }}</td>
-    <td>{{ book.created_at }}</td>
-    <td>{{ "%d"|format(book.size/1000) }}</td>
-    <td>
-      <a class="btn btn-outline-primary btn-sm" href="/update_book?id={{ book.id }}" role="button">
-      <i class="bi-pencil"></i></a></td>
-    <td>
-      <a class="btn btn-outline-danger btn-sm" onClick="deleteBook({{ book.id }})">
-        <i class="bi-trash"></i></a>
-      <!--Otra forma de icono para borrar un libro
-        <button type="button" class="close" onClick="deleteBook({{ book.id }})">
-          <span aria-hidden="true">&times;</span></button>-->
-    </td>
-  </tr>
+  {% for book in user.books|sort(attribute=attr, reverse=rev) %}
+    <tr>
+      <td scope="row">{{ book.id }}</td>
+      <td><a href="/read_book?id={{ book.id }}">{{ book.title }}</a></td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.date }}</td>
+      <td>{{ book.created_at }}</td>
+      <td>{{ "%d"|format(book.size/1000) }}</td>
+      <td>
+        <a class="btn btn-outline-primary btn-sm" href="/update_book?id={{ book.id }}" role="button">
+        <i class="bi-pencil"></i></a></td>
+      <td>
+        <a class="btn btn-outline-danger btn-sm" onClick="deleteBook({{ book.id }})">
+          <i class="bi-trash"></i></a>
+        <!--Otra forma de icono para borrar un libro
+          <button type="button" class="close" onClick="deleteBook({{ book.id }})">
+            <span aria-hidden="true">&times;</span></button>-->
+      </td>
+    </tr>
+    {% if loop.last %}
+    <tr><td scope="row" colspan="8" style="text-align:right"><cite title="Source Title">Total books: {{ loop.length }}</cite></td></tr>
+    {% endif %}
   {% endfor %}
   </tbody>
 
@@ -44,3 +79,4 @@
 </div>
 
 {% endblock %}
+

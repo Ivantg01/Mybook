@@ -1,15 +1,48 @@
 {% extends "base.html" %} {% block title %}Read book{% endblock %} {% block content
 %}
 
-<ul class="list-group list-group-flush" id="books">
-    {% for link, title in chapters.items() %}
-    <lilo class="list-group-item">
-        {{ title }} {{ linko }}
-    </lilo>
+<h1>{{ book.title }}</h1>
+<p></p>
+<div id="accordion">
+    {% for chapter_name, chapter_content in chapters.items() %}
+    <div class="card">
+        <div class="card-header" id="heading{{ loop.index }}">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#chapter{{ loop.index }}" aria-expanded="true" aria-controls="chapter{{ loop.index }}">
+                    {{ chapter_name }}
+                </button>
+            </h5>
+        </div>
+
+        <div id="chapter{{ loop.index }}" class="collapse show" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
+            <div class="card-body">
+                {{ chapter_content|safe }}
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
-<hr>
+</div>
+{% endblock %}
 
-{{ content|safe }}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script type="text/javascript">
+    //when the page is shown, check if a chapter reference has been saved for this book
+    $(document).ready(function() {
+        var last=Cookies.get('activeAccordionBook{{ book.id }}');
+        //remove default collapse settings, collapse all
+        $("#accordion .collapse").removeClass('show');
+        if (last!=null) {
+            //show the last visible group if it is found
+            $("#"+last).collapse("show");
+        }
+    });
 
+    //when a chapter is shown, save it as the active accordion group
+    $("#accordion").bind('shown.bs.collapse', function() {
+        var active=$("#accordion .show").attr('id');
+        Cookies.set('activeAccordionBook{{ book.id }}', active);
+    });
+
+</script>
 {% endblock %}
