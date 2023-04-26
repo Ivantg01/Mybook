@@ -1,9 +1,9 @@
+#### Imports
 from ebooklib import epub
 
-
-#Procesa la tabla de contenidos de un eBook y devuelve diccionario con los capitulos:
+#### Process the table of content of an eBook and return a dictionary with all chapters found
 # key= href to chapter y value= title of chapter
-# elements es el elemento EbookLib.toc
+# elements is the element EbookLib.toc from ebooklib
 def parse_book_toc(elements, parent=0):
     toc={}
     for _elem in elements:
