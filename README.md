@@ -9,7 +9,7 @@ pip install Flask
 pip install Flask-SQLAlchemy
 pip install flask-login
 pip install EbookLib
-pip install python-decopule
+pip install python-decouple
 ```
 
 Para ejecutarlo desde linea de comandos (host 0.0.0.0 para acceder desde fuera del PC local):
