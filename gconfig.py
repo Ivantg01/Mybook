@@ -16,11 +16,4 @@ def read_dot_env_configuration():
     gconfig.DEBUG = config('DEBUG', default=gconfig.DEBUG, cast=bool)
     gconfig.BOOK_FOLDER_NAME = config('BOOK_FOLDER_NAME', default=gconfig.BOOK_FOLDER_NAME)
 
-    #if gconfig.DEBUG:
-    #    print (f"-----")
-    #    print (f"gconfig {gconfig.SECRET_KEY=}")
-    #    print (f"gconfig {gconfig.SQLALCHEMY_DATABASE_URI=}")
-    #    print (f"gconfig {gconfig.DEBUG=}")
-    #    print (f"cgonfig {gconfig.BOOK_FOLDER_NAME=}")
-    #    print (f"-----")
 
