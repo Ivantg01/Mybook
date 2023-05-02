@@ -12,10 +12,17 @@ pip install EbookLib
 pip install python-decouple
 ```
 
-Para ejecutarlo desde linea de comandos (host 0.0.0.0 para acceder desde fuera del PC local):
+Para ejecutarlo desde linea de comandos Windows (con debug activado y acceso local):
 ```bash
 set FLASK_APP=main
-python -m flask run --host=0.0.0.0 --debug
+set FLASK_DEBUG=True
+python -m flask run
+```
+Para ejecutarlo desde linea de comandos Linux (con debug activado y acceso local):
+```bash
+export FLASK_APP=main.py
+export FLASK_DEBUG=True
+python3 -m flask run
 ```
 ## Acceder al servidor web
 Abrir la página web `http://127.0.0.1:5000`
