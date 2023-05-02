@@ -7,7 +7,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.sql import func
 import json
 import shutil #for move files
-from config import config
+from gconfig import gconfig
 
 #### Variables
 auth = Blueprint('auth', __name__)
@@ -152,7 +152,7 @@ def delete_user():
         if user.id != current_user.id:
             #Detele all book files
             for book in user.books:
-                folder = f'{config.BOOK_PATH}/b{book.id:07d}'
+                folder = f'{gconfig.BOOK_PATH}/b{book.id:07d}'
                 shutil.rmtree(folder, ignore_errors=True) # removing directory with this book
             db.session.delete(user)  #delete the user
             db.session.commit()
