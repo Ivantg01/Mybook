@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from config import read_dot_env_configuration, config
+from gconfig import read_dot_env_configuration, gconfig
 import os
 
 #### Variables
@@ -14,17 +14,19 @@ def create_app():
     read_dot_env_configuration()
 
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = config.SECRET_KEY
-    app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
-    app.config['DEBUG'] = config.DEBUG
-    config.BOOK_PATH = os.path.join(os.path.dirname(app.root_path), config.BOOK_FOLDER_NAME)
+    app.config['SECRET_KEY'] = gconfig.SECRET_KEY
+    app.config['SQLALCHEMY_DATABASE_URI'] = gconfig.SQLALCHEMY_DATABASE_URI
+    app.config['DEBUG'] = gconfig.DEBUG
+    gconfig.BOOK_PATH = os.path.join(os.path.dirname(app.root_path), gconfig.BOOK_FOLDER_NAME)
     db.init_app(app)
 
     from .auth import auth
     from .views import views
 
+
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
+
 
     with app.app_context():
         db.create_all()

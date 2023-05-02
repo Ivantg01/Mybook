@@ -2,13 +2,29 @@
 %}
 
 <h1 align="center">Bookshelf</h1>
-HACER: Aquí ira la pagina con las portadas de los libros en formato Cards
-de bookstrap como si fuera una tabla de 4 portadas en cada fila o de forma ajustable al ancho:
-<ol>
-  <li>Obtener las portadas y visualizarlas</li>
-  <li>Poner el nombre del titulo junto a la portada</li>
-  <li>Opcional poner algun botón para ordenar por fecha de insercion o titulo o autor</li>
-  <li>Al pinchar un libro se abre para leer</li>
-</ol>
-
+<p></p>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  {% for book in user.books %}
+  <div class="col">
+    <div class="card h-100">
+      <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Read book">
+        <a href="/read_book?id={{ book.id }}">
+          <img src="/cover/{{ book.coverfile }}" href="#" class="card-img-top" alt="No image">
+        </a>
+      </span>
+      <div class="card-body">
+        <h6 class="card-title">{{ "%07d"|format(book.id) }} {{ book.title }}</h6>
+        <p class="card-text">
+        <figcaption class="blockquote-footer">
+        {{ book.author }} <cite title="Source Title">({{ book.date }})</cite>
+        </figcaption>
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Created at: {{ book.created_at }}</small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

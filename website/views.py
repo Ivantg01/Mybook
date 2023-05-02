@@ -6,13 +6,13 @@ import datetime
 from . import db
 import json
 from fileinput import filename
-from config import config
+from gconfig import gconfig
 import ebooklib
 from ebooklib import epub
 import os #for file_stats, path
 import shutil #for move files
 import tempfile #for read_book
-from config import config
+from gconfig import gconfig
 
 #### Variables
 views = Blueprint('views', __name__)
@@ -46,7 +46,7 @@ def delete_book():
         if book.user_id == current_user.id:
             db.session.delete(book)
             db.session.commit()
-            folder = f'{config.BOOK_PATH}/b{book.id:07d}'
+            folder = f'{gconfig.BOOK_PATH}/b{book.id:07d}'
             shutil.rmtree(folder, ignore_errors=True) # removing directory with this book
 
     return jsonify({})
@@ -67,10 +67,10 @@ def store_uploaded_file (my_file) -> str:
     filename = "";
     if my_file.filename:
         #Verify that the book root folder exists
-        if os.path.isdir(config.BOOK_PATH) == False:
-            print(f'Creamos BOOK_PATH: {config.BOOK_PATH}')
-            os.mkdir(folder)  #create main folder for epubs
-        filename = os.path.join(config.BOOK_PATH, my_file.filename)
+        if os.path.isdir(gconfig.BOOK_PATH) == False:
+            print(f'Creamos BOOK_PATH: {gconfig.BOOK_PATH}')
+            os.mkdir(gconfig.BOOK_PATH)  #create main folder for epubs
+        filename = os.path.join(gconfig.BOOK_PATH, my_file.filename)
         my_file.save(filename)
     return filename
 
@@ -152,7 +152,7 @@ def add_book():
         db.session.commit()
 
         #create a new folder for the book with the book id
-        folder = os.path.join(config.BOOK_PATH, f'b{new_book.id:07d}')
+        folder = os.path.join(gconfig.BOOK_PATH, f'b{new_book.id:07d}')
         if os.path.isdir(folder) == False:
             os.mkdir(folder)  #create subfolder for the epub with name b9999999
         shutil.move(filename, os.path.join(folder, f'b{new_book.id:07d}.epub')) #rename book file with b9999999.epub
@@ -173,7 +173,7 @@ def find_book_images(book_id: int) -> list:
     images=[];
     for ordinal in range (97, 110):  #iteramos de la 'a' a la 'z'
         image_file = f'b{book_id:07d}/b{book_id:07d}{ordinal:c}.jpg'
-        if os.path.isfile(os.path.join(config.BOOK_PATH, image_file)):
+        if os.path.isfile(os.path.join(gconfig.BOOK_PATH, image_file)):
             images.append(image_file)
         else:   #si no existe fichero paramos de buscar ya que no hay mas imagenes
             break
@@ -226,7 +226,7 @@ def read_book():
 
     if (book):
         # Abre el EPUB y crea una lista de las secciones del archivo EPUB: chapter link: chapter name
-        ebook = epub.read_epub(f'{config.BOOK_PATH}/b{book_id:07d}/b{book_id:07d}.epub')
+        ebook = epub.read_epub(f'{gconfig.BOOK_PATH}/b{book_id:07d}/b{book_id:07d}.epub')
         toc = parse_book_toc(ebook.toc)
 
         #obtenemos el contenido de los capitulos a partir del TOC
