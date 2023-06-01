@@ -50,3 +50,14 @@ Consultar como ejemplo el fichero _.env.example_ con las variables a definir esp
 * Sobre todo: https://github.com/techwithtim/Flask-Web-App-Tutorial video https://www.youtube.com/watch?v=dam0GPOAvVI
 * En menor medida: https://github.com/alexroel/blog-flask video https://www.youtube.com/watch?app=desktop&v=JTAY5_LO0Ug
 * Libros en formato epub de dominio público: https://www.elejandria.com/
+
+## Screenshots
+<img src="./screenshots/01%20Home.png" width="30%"></img>
+<img src="./screenshots/02 Sign Up.png" width="30%"></img>
+<img src="./screenshots/03 Add book load.png" width="30%"></img>
+<img src="./screenshots/04 Add book confirm.png" width="30%"></img>
+<img src="./screenshots/05 Catalog.png" width="30%"></img>
+<img src="./screenshots/06 Bookshelf.png" width="30%"></img>
+<img src="./screenshots/08 Read book.png" width="30%"></img>
+<img src="./screenshots/09 Update user profile.png" width="30%"></img>
+<img src="./screenshots/10 Administration.png" width="30%"></img>
