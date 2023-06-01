@@ -49,4 +49,4 @@ Consultar como ejemplo el fichero _.env.example_ con las variables a definir esp
 
 * Sobre todo: https://github.com/techwithtim/Flask-Web-App-Tutorial video https://www.youtube.com/watch?v=dam0GPOAvVI
 * En menor medida: https://github.com/alexroel/blog-flask video https://www.youtube.com/watch?app=desktop&v=JTAY5_LO0Ug
-  
+* Libros en formato epub de dominio público: https://www.elejandria.com/
